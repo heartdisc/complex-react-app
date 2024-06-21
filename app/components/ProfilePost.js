@@ -40,9 +40,10 @@ export default function ProfilePost() {
 
   return (
     <div className="list-group">
-      {posts.map(post => {
-        return <PostItem key={post._id} post={post} noAuthor="true" />;
-      })}
+      {posts &&
+        posts.map(post => {
+          return <PostItem key={post._id} post={post} noAuthor="true" />;
+        })}
     </div>
   );
 }

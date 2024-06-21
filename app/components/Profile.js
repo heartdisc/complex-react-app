@@ -7,6 +7,7 @@ import ProfilePost from "./ProfilePost";
 import { useImmer } from "use-immer";
 import ProfileFollowers from "./ProfileFollowers";
 import ProfileFollowing from "./ProfileFollowing";
+import NotFound from "./NotFound";
 
 export default function Profile() {
   const appState = useContext(StateContext);
@@ -24,7 +25,8 @@ export default function Profile() {
         followerCount: 0,
         followingCount: 0
       }
-    }
+    },
+    profileNotFound: false
   });
 
   useEffect(() => {
@@ -41,9 +43,15 @@ export default function Profile() {
           }
         );
 
-        setState(draft => {
-          draft.profileData = response.data;
-        });
+        if (response.data) {
+          setState(draft => {
+            draft.profileData = response.data;
+          });
+        } else {
+          setState(draft => {
+            draft.profileNotFound = true;
+          });
+        }
       } catch (error) {
         console.log("There was a problem");
         console.log(error.response.data);
@@ -77,7 +85,7 @@ export default function Profile() {
             draft.followActionLoading = false;
           });
         } catch (error) {
-          console.log("There was a problem");
+          // console.log("There was a problem");
           setState(draft => {
             draft.followActionLoading = false;
           });
@@ -134,6 +142,8 @@ export default function Profile() {
       draft.stopFollowingRequestCount++;
     });
   }
+
+  if (state.profileNotFound) return <NotFound />;
 
   return (
     <Page title="Profile">
