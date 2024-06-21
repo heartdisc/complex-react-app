@@ -4,7 +4,7 @@ import DispatchContext from "../DispatchContext";
 import { useImmer } from "use-immer";
 import { Link } from "react-router-dom";
 import io from "socket.io-client";
-const socket = io("http://localhost:8080");
+const socket = io(process.env.REACT_APP_API_URL || "https://complex-backend-eoyf.onrender.com");
 
 function Chat() {
   const appState = useContext(StateContext);
