@@ -43,15 +43,15 @@ export default function Profile() {
           }
         );
 
-        if (response.data) {
-          setState(draft => {
-            draft.profileData = response.data;
-          });
-        } else {
+        if (!response.data) {
           setState(draft => {
             draft.profileNotFound = true;
           });
         }
+
+        setState(draft => {
+          draft.profileData = response.data;
+        });
       } catch (error) {
         console.log("There was a problem");
         console.log(error.response.data);
