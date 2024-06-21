@@ -41,7 +41,7 @@ export default function ProfilePost() {
   return (
     <div className="list-group">
       {posts.map(post => {
-        return <PostItem post={post} noAuthor="true" />;
+        return <PostItem key={post._id} post={post} noAuthor="true" />;
       })}
     </div>
   );
